@@ -1,0 +1,25 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore virtual environment directories
+venv/
+env/
+ENV/
+.venv/
+
+._*
+.m*
+.T*
+.fseventsd/
