@@ -16,7 +16,6 @@ sensor = adafruit_bno055.BNO055_I2C(i2c)
 
 last_val = 0xFFFF
 
-
 def temperature():
     global last_val  # pylint: disable=global-statement
     result = sensor.temperature
@@ -30,11 +29,6 @@ def temperature():
 
 while True:
     print("Temperature: {} degrees C".format(sensor.temperature))
-    """
-    print(
-        "Temperature: {} degrees C".format(temperature())
-    )  # Uncomment if using a Raspberry Pi
-    """
     print("Accelerometer (m/s^2): {}".format(sensor.acceleration))
     print("Magnetometer (microteslas): {}".format(sensor.magnetic))
     print("Gyroscope (rad/sec): {}".format(sensor.gyro))
