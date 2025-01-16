@@ -2,6 +2,7 @@
 git init
 git remote add origin https://github.com/sonicavionics/test-code.git
 git fetch origin
+rm code.py sd/placeholder.txt settings.toml
 git checkout -t origin/main
 screen /dev/tty.usbmodem101 115200  
 ```
