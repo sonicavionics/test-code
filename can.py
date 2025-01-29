@@ -1,11 +1,15 @@
+from time import sleep
 import board
 import busio
-import digitalio
-import adafruit_mcp2515
+from digitalio import DigitalInOut
+from adafruit_mcp2515.canio import Message
+from adafruit_mcp2515 import MCP2515 as CAN
 
-CS_PIN = 28
-cs = digitalio.DigitalInOut(board.GP17)
-cs.direction = digitalio.Direction.OUTPUT
-# SCK, MOSI, MISO
+# Setup SPI and MCP2515 CS (Chip Select) pin
+cs = DigitalInOut(board.GP17)
+cs.switch_to_output()
 spi = busio.SPI(board.GP22, board.GP19, board.GP20)
-mcp = adafruit_mcp2515.MCP2515(spi, cs)
+
+can_bus = CAN(spi, cs, loopback=False, silent=False)
+
+print("Baudrate:", can_bus.baudrate)

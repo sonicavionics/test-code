@@ -1,52 +1,24 @@
 from time import sleep
-
 import board
-
 import busio
-
 from digitalio import DigitalInOut
-
-from adafruit_mcp2515.canio import Message, RemoteTransmissionRequest
-
+from adafruit_mcp2515.canio import Message
 from adafruit_mcp2515 import MCP2515 as CAN
 
-
+# Setup SPI and MCP2515 CS (Chip Select) pin
 cs = DigitalInOut(board.GP17)
 cs.switch_to_output()
 spi = busio.SPI(board.GP22, board.GP19, board.GP20)
 
-can_bus = CAN(  
-
-    spi, cs, loopback=True, silent=True
-
-)  # use loopback to test without another device
+# Initialize MCP2515 CAN Bus (No loopback, Not Silent)
+can_bus = CAN(spi, cs, loopback=False, silent=False)
 
 while True:
+    # Create a CAN message with ID 0x123 and "hello world" data
+    message = Message(id=0x123, data=b"hellobro", extended=False)
 
-    with can_bus.listen(timeout=1.0) as listener:
+    # Send the message
+    is_send_successful = can_bus.send(message)
+    print("Send success:", is_send_successful)
 
-        message = Message(id=0x1234ABCD, data=b"hellobro", extended=True)
-
-        send_success = can_bus.send(message)
-
-        print("Send success:", send_success)
-
-        message_count = listener.in_waiting()
-
-        print(message_count, "messages available")
-
-        for _i in range(message_count):
-
-            msg = listener.receive()
-
-            print("Message from ", hex(msg.id))
-
-            if isinstance(msg, Message):
-
-                print("message data:", msg.data)
-
-            if isinstance(msg, RemoteTransmissionRequest):
-
-                print("RTR length:", msg.length)
-
-    sleep(1)
+    sleep(1)  # Wait before sending the next message
