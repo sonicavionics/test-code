@@ -5,6 +5,9 @@ import time
 
 # Initialize I2C with SCL, SDA
 i2c = busio.I2C(board.A3, board.A2)
+# i2c = busio.I2C(board.GP3, board.GP2) # For the BNO055 
+
+
 
 # Check if I2C is locked (ensure it's ready)
 while not i2c.try_lock():

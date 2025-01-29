@@ -14,7 +14,7 @@ Use REPL:
 
     ls /dev/tty.usb*
 
-    screen /dev/tty.usbmodem1101 115200
+    screen /dev/tty.usbmodem31101 115200
 
 Reattach:
 
